@@ -36,3 +36,6 @@ nosetests.xml
 
 #bower components
 bower_components/
+
+#for phantomjs
+ghostdriver.log
