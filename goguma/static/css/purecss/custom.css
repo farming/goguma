@@ -1,0 +1,9 @@
+.url-input-form input[type="text"] {
+  border-radius: 0 !important;
+  width: 580px;
+  padding-right: 30px;
+  height: 34px;
+  top: -2px;
+  position: relative;
+  margin-right: 12px;
+}
