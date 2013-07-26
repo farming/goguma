@@ -15,6 +15,9 @@ class Backend:
         self.browser.get(url)
         self.image_buffer = self.browser.get_screenshot_as_base64()
 
+    def get_base64_image(self):
+        return self.image_buffer
+
     def save_to_html(self, file_name):
         template = '''
         <html><head></head>
