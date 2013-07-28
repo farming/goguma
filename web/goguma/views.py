@@ -1,6 +1,6 @@
 from flask import render_template, request
 from goguma import goguma
-from backend.backend import Backend
+from hoe import Hoe
 
 @goguma.route('/')
 def index():
@@ -16,8 +16,8 @@ def maketree():
         </body>
         </html>
         '''
-    with Backend() as b:
-        b.open(input_url)
-        html = template % b.get_base64_image()
+    with Hoe() as hoe:
+        hoe.open(input_url)
+        html = template % hoe.get_base64_image()
         return html
         
