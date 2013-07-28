@@ -1,6 +1,6 @@
 from selenium import webdriver
 
-class Backend:
+class Hoe:
     def __init__(self):
         self.browser = webdriver.PhantomJS()
         self.image_buffer = ''
