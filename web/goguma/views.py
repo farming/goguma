@@ -8,24 +8,23 @@ from socketio.namespace import BaseNamespace
 def index():
     return render_template('index.html')
 
-@goguma.route('/url', methods=['POST'])
-def maketree():
+@goguma.route('/pagetree', methods=["POST"])
+def pagetree():
     input_url = request.form['url']
-    template = '''
-        <html><head></head>
-        <body>
-        <img alt='page view' src='data:image/png;base64,%s'/>
-        </body>
-        </html>
-        '''
-    with Hoe() as hoe:
-        hoe.open(input_url)
-        html = template % hoe.get_base64_image()
-        return html
+    return render_template('pagetree.html', url=input_url)
+
 
 class PageGenNamespace(BaseNamespace):
     def recv_connect(self):
-        pass
+        goguma.logger.info("Client connected");
+
+    def on_pageimg_ask(self, input_url):
+        goguma.logger.info("Client connected");
+        # Put celery request here!
+        with Hoe() as hoe:
+            hoe.open(input_url)
+            self.emit('pageimg_rep', hoe.get_base64_image());
+
 
 @goguma.route('/socket.io/<path:remaining>')
 def socketio(remaining):
@@ -35,5 +34,3 @@ def socketio(remaining):
         goguma.logger.error("Exception while socketio connection",
                             exc_info=True)
     return Response()
-
-
