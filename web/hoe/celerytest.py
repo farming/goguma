@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python
 from tasks import add
 from tasks import save_png
 
