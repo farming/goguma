@@ -17,3 +17,10 @@ def save_png(url, file_name):
         hoe.save_to_html(file_name)
     print 'end extract png.'
 
+@celery.task
+def get_png(url):
+    print 'start extract png.'
+    with Hoe() as hoe:
+        hoe.open(url)
+        return hoe.get_base64_image()
+    print 'end extract png.'
