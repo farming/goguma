@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from goguma import goguma
+from web.goguma import goguma
 from gevent import monkey
 from socketio.server import SocketIOServer
 
