@@ -24,3 +24,7 @@ def get_png(url):
         hoe.open(url)
         return hoe.get_base64_image()
     print 'end extract png.'
+
+@celery.task
+def get_internal_links(url):
+    return ['http://www.google.co.kr', 'http://www.naver.com', 'http://www.daum.net']
