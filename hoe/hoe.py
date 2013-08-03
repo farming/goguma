@@ -13,12 +13,13 @@ class Hoe:
 
     def open(self, url):
         self.browser.get(url)
-        self.image_buffer = self.browser.get_screenshot_as_base64()
 
     def get_base64_image(self):
+        self.image_buffer = self.browser.get_screenshot_as_base64()
         return self.image_buffer
 
     def save_to_html(self, file_name):
+        self.image_buffer = self.browser.get_screenshot_as_base64()
         template = '''
         <html><head></head>
         <body>
