@@ -1,25 +1,15 @@
 from selenium import webdriver
+from capturer import Capturer
 
 class Hoe:
-    def __init__(self):
-        self.browser = webdriver.PhantomJS()
-        self.image_buffer = ''
 
-    def __enter__(self):
-        return self
+    def capture(self, url):
+        with Capturer() as capturer:
+            capturer.capture(url)
+            return capturer.get_base64_png()
 
-    def __exit__(self, type, value, traceback):
-        self.browser.close()
-
-    def open(self, url):
-        self.browser.get(url)
-
-    def get_base64_image(self):
-        self.image_buffer = self.browser.get_screenshot_as_base64()
-        return self.image_buffer
-
-    def save_to_html(self, file_name):
-        self.image_buffer = self.browser.get_screenshot_as_base64()
+    def save_to_html(self, url, file_name):
+        image_buffer = self.capture(url)
         template = '''
         <html><head></head>
         <body>
@@ -28,5 +18,5 @@ class Hoe:
         </html>
         '''
         with open(file_name, 'wb') as f:
-            f.write(template % self.image_buffer)
+            f.write(template % image_buffer)
 
