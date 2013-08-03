@@ -10,6 +10,7 @@
   ],
   "dependencies": {
     "jquery": "git://github.com/components/jquery.git#~1.8.3",
-    "socket.io-client": "~0.9.16"
+    "socket.io-client": "~0.9.16",
+    "d3": "~3.2.8"
   }
 }
