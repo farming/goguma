@@ -12,4 +12,4 @@ goguma.jinja_env.globals['static'] = (
 	lambda filename: url_for('static', filename = filename)
 )
 
-from goguma import views
+from web.goguma import views
