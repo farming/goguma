@@ -1,13 +1,7 @@
-from selenium import webdriver
-
 class Capturer:
 
-    def __enter__(self):
-        self.browser = webdriver.PhantomJS()
-        return self
-
-    def __exit__(self, type, value, traceback):
-        self.browser.close()
+    def __init__(self, browser):
+        self.browser = browser;
 
     def capture(self, url):
         self.browser.get(url)

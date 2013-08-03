@@ -1,10 +1,13 @@
-from selenium import webdriver
 from capturer import Capturer
+from selenium import webdriver
 
 class Hoe:
+    def __init__(self, browserFactory):
+        self.browserFactory = browserFactory 
 
     def capture(self, url):
-        with Capturer() as capturer:
+        with self.browserFactory.get() as browser:
+            capturer = Capturer(browser)
             capturer.capture(url)
             return capturer.get_base64_png()
 
