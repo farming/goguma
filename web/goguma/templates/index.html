@@ -1,12 +1,19 @@
-{% extends 'base.html' %}
+{% extends 'bases/base.html' %}
+
+<link href='http://fonts.googleapis.com/css?family=Old+Standard+TT' rel='stylesheet' type='text/css'>
 
 {% block body %}
-<div class="pure-g">
+<div class="splash">
+    <div class="horizontal-center title">
+        <h1 class="headline">당신의 웹 접근성은 안녕하신지요?</h1>
+        <h1 class="headline">Diagnose your website accessibility dramatically</h1>
+        <h3 class="subtitle">GoGuma makes your web service simple</h1>
+        <a href="#about" class="goto-about">...so what is goguma?</a>
+    </div>
     <div class="horizontal-center">
-        <h1>Welcome to goguma!</h1>
-        <form class="pure-form url-input-form" method="post" action="/pagetree">
+        <form class="pagetree-form pure-form url-input-form" method="post" action="/pagetree">
             <input type="text" name="url" placeholder="Type in a URL to try it out">
-            <button type="submit" class="pure-button pure-button-primary">Test it out</button>
+            <button type="submit" class="pure-button">Test it out</button>
         </form>
     </div>
 </div>
