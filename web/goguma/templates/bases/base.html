@@ -11,15 +11,23 @@
     <meta name="viewport" content="width=device-width">
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <link rel="icon" href="{{ static('image/icon/favicon.ico') }}">
 
     <link rel="stylesheet" href="{{ static('css/purecss/purecss-0.2.1.min.css') }}">
+    <link rel="stylesheet" href="{{ static('css/purecss/purecss-custom.css') }}">
     <link rel="stylesheet" href="{{ static('css/purecss/custom.css') }}">
-    <link rel="stylesheet" href="{{ static('css/index.css') }}">
+
+    <!-- use less -->
+    <link rel="stylesheet/less" href="{{ static('less/index.less') }}">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.4.1/less.min.js"></script>
+
 </head>
 <body>
     <!--[if lt IE 7]>
         <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
+
+    {% include 'bases/header.html' %}
 
     {% block body %}
     {% endblock %}
@@ -35,5 +43,7 @@
         s.parentNode.insertBefore(g,s)}(document,'script'));
     </script>
 
+    {% block lib %}
+    {% endblock %}
 </body>
 </html>
