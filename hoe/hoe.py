@@ -1,4 +1,5 @@
 from capturer import Capturer
+from probe import Probe
 from selenium import webdriver
 
 class Hoe:
@@ -23,3 +24,7 @@ class Hoe:
         with open(file_name, 'wb') as f:
             f.write(template % image_buffer)
 
+    def get_sub_url(self, base_url, url):
+        probe = Probe()
+        probe.open(url)
+        return probe.get_internal_url(base_url)
