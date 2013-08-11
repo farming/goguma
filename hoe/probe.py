@@ -12,9 +12,11 @@ class Probe:
         url_list = []
         for atag in self.soup.find_all('a'):
             a_link = atag['href']
-            if (self.check_internal_url(root_page_url, a_link)):
-                internal_full_path = urljoin(self.url, a_link)
-                url_list.append(internal_full_path)
+            if (not self.check_internal_url(root_page_url, a_link)):
+                continue
+
+            internal_full_path = urljoin(self.url, a_link)
+            url_list.append(internal_full_path)
 
         return url_list
 
