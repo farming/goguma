@@ -4,6 +4,7 @@ from hoe.tasks import get_png
 #from hoe import Hoe
 from socketio import socketio_manage
 from socketio.namespace import BaseNamespace
+import json
 
 @goguma.route('/')
 def index():
@@ -17,12 +18,41 @@ def pagetree():
 
 class PageGenNamespace(BaseNamespace):
     def recv_connect(self):
-        goguma.logger.info("Client connected");
+        goguma.logger.info("Client connected")
 
-    def on_pageimg_ask(self, input_url):
-        goguma.logger.info("Client connected");
-        # Put celery request here!
-        self.emit('pageimg_rep',  get_png.delay(input_url).get());
+    def on_pageimg_ask(self, url):
+        goguma.logger.info("Client connected")
+        src = 'data:image/png;base64,' + get_png.delay(url).get()
+
+        self.emit('pageimg_rep', json.dumps({
+            'id': 'a0',
+            'url': '/',
+            'src': src,
+        }))
+        self.emit('pageimg_rep', json.dumps({
+            'id': 'a1',
+            'url': '/teach',
+            'src': src,
+            'parentid': 'a0'
+        }))
+        self.emit('pageimg_rep', json.dumps({
+            'id': 'a2',
+            'url': '/learn',
+            'src': src,
+            'parentid': 'a0'
+        }))
+        self.emit('pageimg_rep', json.dumps({
+            'id': 'a3',
+            'url': '/learn/course',
+            'src': src,
+            'parentid': 'a2'
+        }))
+        self.emit('pageimg_rep', json.dumps({
+            'id': 'a4',
+            'url': '/learn/course',
+            'src': src,
+            'parentid': 'a3'
+        }))
 
 @goguma.route('/socket.io/<path:remaining>')
 def socketio(remaining):

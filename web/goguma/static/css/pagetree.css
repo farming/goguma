@@ -1,0 +1,12 @@
+.node text {
+  pointer-events: none;
+  font: 30px sans-serif;
+}
+.link {
+  stroke: #ccc;
+}
+.thumbnail {
+  width: inherit;
+  height: inherit;
+  background-size: 100% 100%;
+}
