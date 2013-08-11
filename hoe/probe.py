@@ -3,6 +3,10 @@ from urlparse import urlparse, urljoin
 import urllib2
 
 class Probe:
+    def parse_string(self, url, html):
+        self.soup = BeautifulSoup(html)
+        self.url = url
+
     def open(self, url):
         file = urllib2.urlopen(url)
         self.soup = BeautifulSoup(file)

@@ -49,5 +49,29 @@ class TestProbeCheckInternal(unittest.TestCase):
         result = self.probe.check_internal_url(root_page_url, current_url)
 
         self.assertFalse(result)
+
+class TestProbe(unittest.TestCase):
+    def test_normal(self):
+        internal_url_list = self.__helper__(
+                root_page_path = 'http://example.com/',
+                current_path = 'http://example.com/f/b',
+                a_link='http://example.com/f')
+
+        self.assertIn('http://example.com/f', internal_url_list)
+
+
+    def __helper__(self, a_link, current_path, root_page_path):
+        probe = Probe()
+        probe.parse_string(current_path,
+        '''
+        <html><head></head>
+        <body>
+        <a href="%s"></a>
+        </body></html>
+        ''' % a_link)
+
+        return probe.get_internal_url(root_page_path)
+
+
 if __name__ == '__main__':
     unittest.main()
