@@ -3,24 +3,17 @@ from probe import Probe
 from selenium import webdriver
 
 class Hoe:
-    def __init__(self):
-        self.browser = webdriver.PhantomJS()
-        self.image_buffer = ''
+    def __init__(self, browserFactory):
+        self.browserFactory = browserFactory 
 
-    def __enter__(self):
-        return self
+    def capture(self, url):
+        with self.browserFactory.get() as browser:
+            capturer = Capturer(browser)
+            capturer.capture(url)
+            return capturer.get_base64_png()
 
-    def __exit__(self, type, value, traceback):
-        self.browser.close()
-
-    def open(self, url):
-        self.browser.get(url)
-        self.image_buffer = self.browser.get_screenshot_as_base64()
-
-    def get_base64_image(self):
-        return self.image_buffer
-
-    def save_to_html(self, file_name):
+    def save_to_html(self, url, file_name):
+        image_buffer = self.capture(url)
         template = '''
         <html><head></head>
         <body>
@@ -29,7 +22,7 @@ class Hoe:
         </html>
         '''
         with open(file_name, 'wb') as f:
-            f.write(template % self.image_buffer)
+            f.write(template % image_buffer)
 
     def get_sub_url(self, base_url, url):
         probe = Probe()

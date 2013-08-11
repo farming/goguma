@@ -13,4 +13,3 @@ class Probe:
             url_list.append(url)
 
         return url_list
-
