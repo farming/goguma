@@ -5,6 +5,11 @@ class BrowserFactory:
     def __init__(self):
         self.browser_list = deque()
 
+        for i in range(4):
+            browser = webdriver.PhantomJS()
+            browserWrapper = BrowserWrapper(browser, self)
+            self.pool(browserWrapper)
+
     def get(self): # must be thread safe.
         if len(self.browser_list) != 0:
             return self.browser_list.popleft()
