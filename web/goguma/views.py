@@ -42,7 +42,7 @@ class PageGenNamespace(BaseNamespace):
     def pagelink_req(self, input_url, current_id, current_depth):
         if current_depth > self.max_depth:
             return
-        link_list = get_internal_links.delay('http://www.google.co.kr', input_url).get()
+        link_list = get_internal_links.delay(self.base_url, input_url).get()
         for url in link_list:
             Greenlet.spawn(self.work_on_url, url, current_id, current_depth + 1)
 
@@ -51,6 +51,7 @@ class PageGenNamespace(BaseNamespace):
 
     def on_pageimg_ask(self, input_url):
         goguma.logger.info("Client connected")
+        self.base_url = input_url
         Greenlet.spawn(self.work_on_url, input_url, None, 1)
 
 @goguma.route('/socket.io/<path:remaining>')
