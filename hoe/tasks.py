@@ -26,5 +26,9 @@ def get_png(url):
     print 'end extract png.'
 
 @celery.task
-def get_internal_links(url):
-    return ['http://www.google.co.kr', 'http://www.naver.com', 'http://www.daum.net']
+def get_internal_links(base_url, url):
+    print 'start extract internal url.'
+    sub_url_list = hoe.get_sub_url(base_url, url)
+    print 'end extract internal url.'
+    return sub_url_list
+    #return ['http://www.google.co.kr', 'http://www.naver.com', 'http://www.daum.net']
