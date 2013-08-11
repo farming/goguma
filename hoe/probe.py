@@ -22,7 +22,8 @@ class Probe:
 
     def check_internal_url(self, root_page_url, url):
         root_page_url_parsed = urlparse(root_page_url)
-        url_parsed = urlparse(url)
+        full_url = urljoin(self.url, url)
+        url_parsed = urlparse(full_url)
 
         root_page_netloc = root_page_url_parsed.netloc
         page_netloc = url_parsed.netloc
