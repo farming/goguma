@@ -1,22 +1,19 @@
 {% extends 'bases/base.html' %}
 
-{% block body %}
+{% block lib %}
+
+<link rel="stylesheet" href="{{ static('css/pagetree.css') }}">
 <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
 <script>window.io || document.write('<script src="{{ static('bower_components/socket.io-client/dist/socket.io.min.js') }}"><\/script>')</script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js"></script>
 <script>window.d3 || document.write('<script src="{{ static('bower_componentss/d3/d3.min.js') }}"><\/script>')</script>
+<script src="{{ static('js/pagetree.js') }}"></script>
 
-<div class="pure-g pagetree">
+{% endblock %}
+
+{% block body %}
+
+<div class="pure-g pagetree" data-url="{{ url }}">
 </div>
 
-<script>
-    var socket = io.connect('/pagegen');
-    socket.emit('pageimg_ask', '{{ url }}');
-    socket.on('pageimg_rep', function(imgbase64) {
-        var $pagetree = $('.pagetree'),
-            src = 'data:image/png;base64,' + imgbase64,
-            img = $('<img>').attr('src', src);
-        $pagetree.append(img);
-    });
-</script>
 {% endblock %}
