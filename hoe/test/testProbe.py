@@ -59,6 +59,45 @@ class TestProbe(unittest.TestCase):
 
         self.assertIn('http://example.com/f', internal_url_list)
 
+    def test_same_as_root_page(self):
+        internal_url_list = self.__helper__(
+                root_page_path = 'http://example.com/f/',
+                current_path = 'http://example.com/f/b',
+                a_link='http://example.com/f/')
+
+        self.assertIn('http://example.com/f/', internal_url_list)
+
+    def test_relative(self):
+        internal_url_list = self.__helper__(
+                root_page_path = 'http://example.com/f/',
+                current_path = 'http://example.com/f/b',
+                a_link='./tail')
+
+        self.assertIn('http://example.com/f/tail', internal_url_list)
+
+    def test_relative2(self):
+        internal_url_list = self.__helper__(
+                root_page_path = 'http://example.com/f/',
+                current_path = 'http://example.com/f/b',
+                a_link='tail')
+
+        self.assertIn('http://example.com/f/tail', internal_url_list)
+
+    def test_absolute(self):
+        internal_url_list = self.__helper__(
+                root_page_path = 'http://example.com/f/',
+                current_path = 'http://example.com/f/b',
+                a_link='/f/awef')
+
+        self.assertIn('http://example.com/f/awef', internal_url_list)
+
+    def test_absolute_fail(self):
+        internal_url_list = self.__helper__(
+                root_page_path = 'http://example.com/f/',
+                current_path = 'http://example.com/f/b',
+                a_link='/asd')
+
+        self.assertNotIn('http://example.com/asd', internal_url_list)
 
     def __helper__(self, a_link, current_path, root_page_path):
         probe = Probe()
